@@ -1,7 +1,8 @@
-# Tehtäväsi on muodostaa lista, jossa on kaikki 
-# annetun merkkijonon anagrammit eli kaikki merkkijonot, 
-# jotka voidaan muodostaa merkkijonon merkeistä. 
-# Listan tulee olla aakkosjärjestyksessä.
+#Merkkijonon anagrammi sisältää kaikki 
+#merkkijonon merkit jossakin järjestyksessä. 
+# Tehtäväsi on muodostaa kaikki annetun merkkijonon anagrammit.
+
+
 
 
 def create(sana):
@@ -18,7 +19,7 @@ def create(sana):
 
         
 if __name__ == "__main__":
-     print(create("a"))
-     print(create("ab")) # [ab,ba]
-     print(create("abac")) # [aabc,aacb,abac,abca,acab,acba,baac,baca,bcaa,caab,caba,cbaa]
-     print(len(create("aybabtu"))) # 1260
+    print(create("abc")) # ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
+    print(create("aaaaa")) # ['aaaaa']
+    print(create("abab")) # ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa']
+    print(len(create("aybabtu"))) # 1260

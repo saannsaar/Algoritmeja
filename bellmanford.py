@@ -34,4 +34,4 @@ if __name__ == "__main__":
     start = timeit.default_timer()
     res = bellman_ford(edges)
     end = timeit.default_timer()
-    print(f"Took {end - start} secs")
+    print(f"Aikaa meni: {end - start} sekuntia")

@@ -1,78 +1,30 @@
-# Python3 implementation for the above approach
-import numpy as np
+def count(bit_string):
+    
+    def apufunktio(s):
+         # Jos apufunktiolle annettu string on tyhjä, on yksi onnistunut poistotapa löytynyt
+        if not s:
+            return 1 
 
-# Define the dp table globally
-dp = np.zeros((505,505))
-choose = np.zeros((502,502))
+        montaTapaa = 0
+        i = 0
+        while i < len(s):
+            j = i + 1
+            while j < len(s) and s[j] == s[i]:
+                j += 1
+			# Luodaan uusi string ilman peräkkäisiä samoja bittejä
+            uusiString = s[:i] + s[j:]
+           
+            # Rekursiivisesti lasketaan poistotavat uudesta stringistä
+            montaTapaa += apufunktio(uusiString)
+            i = j
 
-# Recursive function to calculate the dp
-# values for range [L, R]
-def calc(l, r, s) :
+        return montaTapaa
 
-	# The range is odd length
-	if (abs(r - l) % 2 == 0) :
-		return 0
+    return apufunktio(bit_string)
 
-	if (l > r) :
-		dp[l][r] = 1
-		return dp[l][r]
-
-	# The state is already calculated
-	if (dp[l][r] != -1) :
-		return dp[l][r]
-
-	# If the length is 2
-	if ((r - l) == 1) :
-		if (s[l] == s[r]) :
-			dp[l][r] = 1
-		
-		else :
-			dp[l][r] = 0
-		
-		return dp[l][r]
-	
-	# Total answer for this state
-	ans = 0
-	
-	for k in range(l + 1, r + 1, 2) :
-
-		# Variable to store the current answer.
-		temp = 1
-
-		# Remove characters s[l] and s[i].
-		if (s[l] == s[k]) :
-			temp = calc(l + 1, k - 1, s) * calc(k + 1, r, s) * choose[(r - l + 1) // 2][(r - k) // 2]
-			ans += temp
-		
-	
-	dp[l][r] = ans
-	return dp[l][r]
-
-def waysToClearString(S) :
-
-
-	# Initialize all the states of dp to -1
-	#memset(dp, -1, sizeof(dp));
-	
-	for i in range(505):
-		for j in range(505) :
-			dp[i][j] = -1
-
-	# Calculate all Combinations
-	n = len(S)
-	choose[0][0] = 1
-	for i in range(1, (n // 2) + 1) :
-		choose[i][0] = 1
-		for j in range(1, i + 1) :
-			choose[i][j]= choose[i - 1][j] + choose[i - 1][j - 1];
-	
-	return calc(0, n - 1, S)
-
-# Driver Code
-if __name__ == "__main__" :
-
-	S = "aabccb"
-
-	print(waysToClearString(S))
-
-	# This code is contributed by AnkThon
+if __name__ == "__main__":
+    print(count("1100")) # 2
+    print(count("1001")) # 1
+    print(count("100111")) # 5
+    print(count("11001")) # 0
+    print(count("1100110011100111")) # 113925
